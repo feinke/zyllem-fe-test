@@ -2,9 +2,12 @@
   <div *ngFor="let article of articles" class="mb-4">
     <div class="max-w">
       <img class="w-1/3" [src]="article.featureImgUrl" [alt]="article.title" *ngIf="article.featureImgUrl">
-      <div class="font-bold text-xl mb-2">{{article.title}}</div>
+      <div class="font-bold text-xl mb-2">
+        <a (click)="setArticle(article)" [title]="article.title" href="javascript:void(0);">{{article.title}}</a>
+      </div>
       <div class="text-sm">{{article.publishedAt}} | {{article.author}}</div>
       <div class="text-gray-700 text-base" *ngIf="article.description" [innerHTML]="article.description"></div>
+      <a href="javascript:void(0)" class="bg-gray-300 px-2 py-1 rounded inline-block" (click)="setArticle(article)">Read More</a>
     </div>
   </div>
 </div>

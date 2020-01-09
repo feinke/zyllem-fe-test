@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { ZyllemApiService } from './app.service';
 import { ComponentsModule } from "./components/components.module";
 import { AppRoutingModule } from './app-routing.module';
+import { ArticleService } from './services/article.service';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,7 @@ import { AppRoutingModule } from './app-routing.module';
     ComponentsModule,
     AppRoutingModule
   ],
-  providers: [ZyllemApiService],
+  providers: [ZyllemApiService, ArticleService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

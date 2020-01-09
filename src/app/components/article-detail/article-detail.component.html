@@ -1,0 +1,10 @@
+<div *ngIf="article; else none">
+  <h1>Article Detail Page</h1>
+  <p>
+    {{article.title}}
+  </p>
+</div>
+<ng-template #none>
+  OOPS! No article.
+</ng-template>
+<a class="bg-gray-300 px-2 py-1 rounded inline-block" routerLink="/">Back</a>

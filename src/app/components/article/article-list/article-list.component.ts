@@ -3,6 +3,8 @@ import { ZyllemApiService } from '../../../app.service';
 import { Article } from '../../../model/article';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import * as moment from 'moment';
+import { ArticleService } from '../../../services/article.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-article-list',
@@ -12,7 +14,9 @@ import * as moment from 'moment';
 export class ArticleListComponent implements OnInit, OnDestroy {
 
   constructor(
-    protected zylemApiService: ZyllemApiService
+    protected zylemApiService: ZyllemApiService,
+    protected articleService: ArticleService,
+    protected router: Router
   ) { }
 
   articles$: BehaviorSubject<Article[]> = new BehaviorSubject([]);
@@ -38,6 +42,11 @@ export class ArticleListComponent implements OnInit, OnDestroy {
     });
 
     this.subscriptions.push(subscription);
+  }
+
+  setArticle(article:Article){
+    this.articleService.setSelectedArticle(article);
+    this.router.navigate(['/article']);
   }
 
 }
