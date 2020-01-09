@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ZyllemApiService } from '../../../app.service';
-import { Article } from '../../../model/article';
+import { Article, ArticleType } from '../../../model/article';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import * as moment from 'moment';
 import { ArticleService } from '../../../services/article.service';
@@ -20,6 +20,7 @@ export class ArticleListComponent implements OnInit, OnDestroy {
   ) { }
 
   articles$: BehaviorSubject<Article[]> = new BehaviorSubject([]);
+  currentArticleType: ArticleType = null;
   subscriptions: Subscription[] = [];
 
   ngOnInit() {
@@ -27,24 +28,37 @@ export class ArticleListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscriptions.forEach((subscription)=> {
+    this.subscriptions.forEach((subscription) => {
       subscription.unsubscribe();
-    })
+    });
   }
 
-  getArticles() {
+  getArticles(type?: ArticleType) {
     let subscription = this.zylemApiService.getArticles().subscribe((articles) => {
       const formattedArticles = articles.map((article) => {
         article.publishedAt = moment(article.publishedAt).format('MMMM DD, YYYY');
         return article;
       });
-      this.articles$.next(formattedArticles);
+
+      if (type) {
+        const filteredArticle = this.filterArticle(articles, type);
+        this.articles$.next(filteredArticle);
+      }
+      else {
+        this.articles$.next(formattedArticles);
+      }
     });
 
     this.subscriptions.push(subscription);
   }
 
-  setArticle(article:Article){
+  filterArticle(articles:Article[], type: ArticleType | null) {
+    return articles.filter((article) => {
+      return article.type === type;
+    });
+  }
+
+  setArticle(article: Article) {
     this.articleService.setSelectedArticle(article);
     this.router.navigate(['/article']);
   }
