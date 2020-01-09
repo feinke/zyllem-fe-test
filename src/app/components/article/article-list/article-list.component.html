@@ -1,6 +1,12 @@
-<a href="javascript:void(0)" class="bg-gray-300 px-2 py-1 mr-1 rounded inline-block" (click)="getArticles();">All</a>
-<a href="javascript:void(0)" class="bg-gray-300 px-2 py-1 mr-1 rounded inline-block" (click)="getArticles('FEATURED');">Featured</a>
-<a href="javascript:void(0)" class="bg-gray-300 px-2 py-1 mr-1 rounded inline-block" (click)="getArticles('NORMAL');">Normal</a>
+
+<div class="flex">
+  <div class="mr-1">Filter:</div>
+  <div>
+    <a href="javascript:void(0)" class="bg-gray-300 px-2 py-1 mr-1 rounded inline-block" (click)="getArticles();">All</a>
+    <a href="javascript:void(0)" class="bg-gray-300 px-2 py-1 mr-1 rounded inline-block" (click)="getArticles('FEATURED');">Featured</a>
+    <a href="javascript:void(0)" class="bg-gray-300 px-2 py-1 mr-1 rounded inline-block" (click)="getArticles('NORMAL');">Normal</a>
+  </div>
+</div>
 
 <div class="article-wrapper my-2" *ngIf="articles$ | async as articles">
   <div *ngFor="let article of articles" class="mb-4">
